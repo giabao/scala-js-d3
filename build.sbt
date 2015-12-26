@@ -10,7 +10,7 @@ scalaVersion := "2.11.7"
 
 scalacOptions ++= Seq("-deprecation", "-feature")
 
-crossScalaVersions := Seq("2.10.5", "2.11.7")
+crossScalaVersions := Seq("2.10.6", "2.11.7")
 
 libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.8.2"
 
