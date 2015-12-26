@@ -1,8 +1,8 @@
 language: scala
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION package
+  - sbt ++$TRAVIS_SCALA_VERSION test
 after_success:
-  - if [[ "${PUBLISH_ENABLED}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" && "${PUBLISH_USER}" != "" && "${PUBLISH_PASS}" != "" ]]; then sbt ++$TRAVIS_SCALA_VERSION publish; fi
+  - if [[ "${JAVA_HOME}" == "/usr/lib/jvm/java-8-oracle" && "${PUBLISH_ENABLED}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" && "${PUBLISH_USER}" != "" && "${PUBLISH_PASS}" != "" ]]; then sbt ++$TRAVIS_SCALA_VERSION publish; fi
 scala:
   - 2.10.6
   - 2.11.7
