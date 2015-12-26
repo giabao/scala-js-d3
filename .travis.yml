@@ -1,6 +1,4 @@
 language: scala
-script:
-  - sbt ++$TRAVIS_SCALA_VERSION test
 after_success:
   - if [[ "${JAVA_HOME}" == "/usr/lib/jvm/java-8-oracle" && "${PUBLISH_ENABLED}" == "true" && "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" && "${PUBLISH_USER}" != "" && "${PUBLISH_PASS}" != "" ]]; then sbt ++$TRAVIS_SCALA_VERSION publish; fi
 scala:
@@ -15,3 +13,14 @@ env:
     - PUBLISH_ENABLED=true
     - secure: "Wb/CtlPhsX5BCkdT+tU0f3T7dJ/wIq0lWM6V/p2+XxoEzaob5Ps+V4rm2YelMwGQGrW25EM5icXvYaTWL8ceyc4anegA25erHQzCUSrQ6M9X0cDxyltdAcsx0tyKY2JP6prNu6Zj1/8ddCn3X/gJWg6iHkQg+pA5stHToDocXVo="
     - secure: "NeiG7z40oqapLDEoi9Cs0u7BgFsEiZuKRF8iLDhOCtsKBLHWbrVylD/Z8RJioNn1Fkj8rp1R4ii/O6ASIRgSxl+dthHgrNkTfo/bgZemWws9GYvTHRgp+OwDktsMNxW/BGWLW7dg8C5z8nAvwq8TzFm8VDV671VSs4GhiSFyjjQ="
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
+script:
+  # Your normal script
+  - sbt ++$TRAVIS_SCALA_VERSION -Dfile.encoding=UTF8 test
+
+  # Tricks to avoid unnecessary cache updates
+  - find $HOME/.sbt -name "*.lock" | xargs rm
+  - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
